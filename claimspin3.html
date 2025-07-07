@@ -1,40 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Claim 3 Spins</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #fff3f3;
+      background: #007bff;
+      color: white;
       text-align: center;
-      padding: 50px 20px;
-    }
-    h2 {
-      color: #d50000;
-      margin-bottom: 16px;
+      font-family: sans-serif;
+      padding: 60px 20px;
     }
     .btn {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #e53935;
-      color: #fff;
-      font-size: 16px;
-      border-radius: 8px;
+      background: #fff;
+      color: #007bff;
+      padding: 12px 24px;
+      font-size: 18px;
       text-decoration: none;
-    }
-    .btn:hover {
-      background: #b71c1c;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
-
-  <h2>🔥 You made it through the premium link!</h2>
-  <p>Tap below to claim your <strong>3 spins</strong>:</p>
-
-  <a class="btn" href="https://t.me/PGLaccount_bot?start=claim_spin_3">🎯 Claim 3 Spins</a>
-
+  <h2>🔥 Premium Reward</h2>
+  <p>Complete the shortlink, then tap the button below to claim your 3 spins!</p>
+  <script>
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (token) {
+      document.write(`<a class="btn" href="https://t.me/PGLaccount_bot?start=token_${token}">🎁 Claim 3 Spins</a>`);
+    } else {
+      document.write("<p>⚠️ Invalid link. Token missing.</p>");
+    }
+  </script>
 </body>
 </html>
