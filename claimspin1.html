@@ -1,40 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Claim 1 Spin</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #e8f7ff;
+      background: #007bff;
+      color: white;
       text-align: center;
-      padding: 50px 20px;
-    }
-    h2 {
-      color: #0091ea;
-      margin-bottom: 16px;
+      font-family: sans-serif;
+      padding: 60px 20px;
     }
     .btn {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #007aff;
-      color: #fff;
-      font-size: 16px;
-      border-radius: 8px;
+      background: #fff;
+      color: #007bff;
+      padding: 12px 24px;
+      font-size: 18px;
       text-decoration: none;
-    }
-    .btn:hover {
-      background: #0057d8;
+      border-radius: 8px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-
-  <h2>✅ Thanks for completing the shortlink!</h2>
-  <p>Tap below to claim your <strong>1 spin</strong>:</p>
-
-  <a class="btn" href="https://t.me/PGLaccount_bot?start=claim_spin_1">🎯 Claim 1 Spin</a>
-
+  <h2>🎉 Ready to claim your spin?</h2>
+  <p>Tap the button below to complete your claim.</p>
+  <script>
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (token) {
+      document.write(`<a class="btn" href="https://t.me/PGLaccount_bot?start=token_${token}">🎁 Claim 1 Spin</a>`);
+    } else {
+      document.write("<p>⚠️ Invalid link. Token missing.</p>");
+    }
+  </script>
 </body>
 </html>
