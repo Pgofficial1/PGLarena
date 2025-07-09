@@ -1,74 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PG League Standings</title>
   <style>
     body {
-      background: #fefefe;
-      font-family: Arial, sans-serif;
-      margin: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
     }
     h1 {
       text-align: center;
-      color: red;
+      color: #333;
     }
-    .league-table {
-      margin-top: 40px;
-    }
-    .league-name {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: #c00000;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 5px;
+    section {
+      margin: 40px 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      padding: 20px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      background: white;
-      margin-bottom: 20px;
+      margin-top: 15px;
     }
     th, td {
-      padding: 8px;
-      border: 1px solid #ddd;
+      padding: 10px 8px;
       text-align: center;
-      font-size: 14px;
+      border-bottom: 1px solid #ddd;
+      font-size: 15px;
     }
     th {
-      background-color: #f2f2f2;
+      background: #222;
+      color: white;
+    }
+
+    .promoted {
+      background: #d4edda;
+      color: #155724;
       font-weight: bold;
+    }
+    .relegated {
+      background: #f8d7da;
+      color: #721c24;
+      font-weight: bold;
+    }
+    .playoff {
+      background: #e2d5f9;
+      color: #4a148c;
+      font-weight: bold;
+    }
+    .legend {
+      font-size: 14px;
+      margin-top: 12px;
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <h1>PG League Standings</h1>
 
-  <div class="league-table">
-    <div class="league-name">PG PRO LEAGUE</div>
-    <table>
-      <tr>
-        <th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th>
-        <th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
-      </tr>
-      <tr>
-        <td>Team A</td><td>5</td><td>3</td><td>1</td><td>1</td><td>10</td><td>6</td><td>+4</td><td>10</td>
-      </tr>
-    </table>
-  </div>
+  <h1>🏆 PG League Standings</h1>
 
-  <div class="league-table">
-    <div class="league-name">PG CHAMPIONSHIP LEAGUE</div>
-    <table>
-      <tr>
-        <th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th>
-        <th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
-      </tr>
-      <tr>
-        <td>Red Arrows</td><td>5</td><td>4</td><td>0</td><td>1</td><td>12</td><td>5</td><td>+7</td><td>12</td>
-      </tr>
+  <!-- PG PRO LEAGUE -->
+  <section>
+    <h2>PG PRO LEAGUE</h2>
+    <table id="pro-league-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th>
+          <th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
-  </div>
+    <div class="legend">
+      ✅ Top positions = Safe & Champions<br>
+      🟣 7th = Playoff<br>
+      🔻 8th–10th = Relegated to PG Championship League
+    </div>
+  </section>
+
+  <!-- PG CHAMPIONSHIP LEAGUE -->
+  <section>
+    <h2>PG CHAMPIONSHIP LEAGUE</h2>
+    <table id="championship-league-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th>
+          <th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="legend">
+      ✅ 1st–2nd = Promoted<br>
+      🟣 4th–5th = Playoff<br>
+      ❌ 6th–10th = Terminated
+    </div>
+  </section>
+
+  <!-- PG UPCOMINGS LEAGUE -->
+  <section>
+    <h2>PG UPCOMINGS LEAGUE</h2>
+    <table id="upcomings-league-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th>
+          <th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="legend">
+      ✅ 1st–4th = Promoted to PG Championship League
+    </div>
+  </section>
+
+  <script>
+    async function fetchStandings() {
+      const response = await fetch("https://pgofficial1.github.io/PGLarena/standings.json");
+      const data = await response.json();
+
+      const render = (leagueKey, tableId, rules) => {
+        const tbody = document.querySelector(`#${tableId} tbody`);
+        if (!data[leagueKey]) {
+          tbody.innerHTML = '<tr><td colspan="10">No data yet.</td></tr>';
+          return;
+        }
+
+        const sorted = Object.entries(data[leagueKey])
+          .sort((a, b) => b[1].Pts - a[1].Pts || b[1].GD - a[1].GD || b[1].GF - a[1].GF);
+
+        sorted.forEach(([team, stat], i) => {
+          const tr = document.createElement("tr");
+          let cls = "";
+
+          if (rules.promoted?.includes(i + 1)) cls = "promoted";
+          if (rules.relegated?.includes(i + 1)) cls = "relegated";
+          if (rules.playoff?.includes(i + 1)) cls = "playoff";
+
+          tr.className = cls;
+          tr.innerHTML = `
+            <td>${i + 1}</td><td>${team}</td><td>${stat.P}</td><td>${stat.W}</td>
+            <td>${stat.D}</td><td>${stat.L}</td><td>${stat.GF}</td><td>${stat.GA}</td>
+            <td>${stat.GD}</td><td>${stat.Pts}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
+
+      render("PG PRO LEAGUE", "pro-league-table", {
+        playoff: [7],
+        relegated: [8, 9, 10]
+      });
+
+      render("PG CHAMPIONSHIP LEAGUE", "championship-league-table", {
+        promoted: [1, 2],
+        playoff: [4, 5],
+        relegated: [6, 7, 8, 9, 10]
+      });
+
+      render("PG UPCOMINGS LEAGUE", "upcomings-league-table", {
+        promoted: [1, 2, 3, 4]
+      });
+    }
+
+    fetchStandings();
+  </script>
 
 </body>
-    </html>
+</html>
