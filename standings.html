@@ -1,21 +1,74 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>PGL Arena - Standings</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #fff; color: #111; margin: 0; padding: 0; }
-        h1 { text-align: center; background: #b30000; color: white; margin: 0; padding: 15px; }
-        .league-table { padding: 20px; }
-        .league-title { font-size: 22px; color: #b30000; border-left: 5px solid #b30000; padding-left: 10px; margin-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-        th { background: #f2f2f2; }
-    </style>
+  <meta charset="UTF-8">
+  <title>PG League Standings</title>
+  <style>
+    body {
+      background: #fefefe;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: red;
+    }
+    .league-table {
+      margin-top: 40px;
+    }
+    .league-name {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #c00000;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 14px;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h1>PG League - Standings</h1>
-    <!-- League tables will be inserted here -->
+  <h1>PG League Standings</h1>
+
+  <div class="league-table">
+    <div class="league-name">PG PRO LEAGUE</div>
+    <table>
+      <tr>
+        <th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th>
+        <th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+      </tr>
+      <tr>
+        <td>Team A</td><td>5</td><td>3</td><td>1</td><td>1</td><td>10</td><td>6</td><td>+4</td><td>10</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="league-table">
+    <div class="league-name">PG CHAMPIONSHIP LEAGUE</div>
+    <table>
+      <tr>
+        <th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th>
+        <th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+      </tr>
+      <tr>
+        <td>Red Arrows</td><td>5</td><td>4</td><td>0</td><td>1</td><td>12</td><td>5</td><td>+7</td><td>12</td>
+      </tr>
+    </table>
+  </div>
+
 </body>
-</html>
+    </html>
