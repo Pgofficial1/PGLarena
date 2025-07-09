@@ -7,55 +7,66 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #e0f0ff; /* Light blue background */
+      background-color: #d0e7ff; /* Light eFootball blue */
       margin: 0;
       padding: 20px;
     }
+
     h1 {
       text-align: center;
-      color: #002b5c;
+      color: #003366;
     }
+
     section {
-      margin: 40px 0;
-      background: #fffccf; /* Light yellow card background */
-      border-radius: 14px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.08);
+      background-color: #fff78a; /* Light yellow */
       padding: 20px;
+      margin-bottom: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
+
     h2 {
       text-align: center;
-      color: #333;
       margin-top: 0;
+      color: #222;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 15px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
     }
+
     th, td {
-      padding: 10px 8px;
+      padding: 10px 6px;
       text-align: center;
       border-bottom: 1px solid #ccc;
       font-size: 15px;
     }
+
     th {
-      background: #222;
+      background-color: #003366;
       color: white;
     }
 
     .promoted {
-      background: #d4edda;
+      background-color: #d4edda;
       color: #155724;
       font-weight: bold;
     }
+
     .relegated {
-      background: #f8d7da;
+      background-color: #f8d7da;
       color: #721c24;
       font-weight: bold;
     }
+
     .playoff {
-      background: #e2d5f9;
-      color: #4a148c;
+      background-color: #e5d3f0;
+      color: #4a0072;
       font-weight: bold;
     }
 
@@ -63,7 +74,15 @@
       font-size: 14px;
       margin-top: 12px;
       color: #333;
+      background: #fefefe;
       padding: 10px;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 600px) {
+      table, th, td {
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -86,7 +105,7 @@
     <div class="legend">
       ✅ Top positions = Safe & Champions<br>
       🟣 7th = Playoff<br>
-      🔻 8th–10th = Relegated to PG Championship League
+      🔻 8th–10th = Relegated
     </div>
   </section>
 
@@ -104,7 +123,7 @@
     </table>
     <div class="legend">
       ✅ 1st–2nd = Promoted<br>
-      🟣 4th–5th = Playoff<br>
+      🟣 4th–5th = Promotion Playoff<br>
       ❌ 6th–10th = Terminated
     </div>
   </section>
@@ -133,6 +152,8 @@
 
       const render = (leagueKey, tableId, rules) => {
         const tbody = document.querySelector(`#${tableId} tbody`);
+        tbody.innerHTML = "";
+
         if (!data[leagueKey]) {
           tbody.innerHTML = '<tr><td colspan="10">No data yet.</td></tr>';
           return;
@@ -142,16 +163,17 @@
           .sort((a, b) => b[1].Pts - a[1].Pts || b[1].GD - a[1].GD || b[1].GF - a[1].GF);
 
         sorted.forEach(([team, stat], i) => {
-          const tr = document.createElement("tr");
+          const rank = i + 1;
           let cls = "";
 
-          if (rules.promoted?.includes(i + 1)) cls = "promoted";
-          if (rules.relegated?.includes(i + 1)) cls = "relegated";
-          if (rules.playoff?.includes(i + 1)) cls = "playoff";
+          if (rules.promoted?.includes(rank)) cls = "promoted";
+          else if (rules.relegated?.includes(rank)) cls = "relegated";
+          else if (rules.playoff?.includes(rank)) cls = "playoff";
 
+          const tr = document.createElement("tr");
           tr.className = cls;
           tr.innerHTML = `
-            <td>${i + 1}</td><td>${team}</td><td>${stat.P}</td><td>${stat.W}</td>
+            <td>${rank}</td><td>${team}</td><td>${stat.P}</td><td>${stat.W}</td>
             <td>${stat.D}</td><td>${stat.L}</td><td>${stat.GF}</td><td>${stat.GA}</td>
             <td>${stat.GD}</td><td>${stat.Pts}</td>
           `;
