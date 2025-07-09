@@ -1,142 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>PG League Fixtures & Results</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #e6d5f7; /* Purple background */
-      margin: 0;
-      padding: 20px;
+      background-color: #e6d5f7; /* Soft purple background */
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-
     h1 {
+      color: red;
       text-align: center;
-      color: #2c003e;
     }
-
-    section {
-      background-color: #fff78a; /* Yellow league container */
-      padding: 20px;
+    .league-section {
       margin-bottom: 40px;
-      border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
-
-    h2 {
-      text-align: center;
-      margin-top: 0;
-      color: #111;
+    .title {
+      font-size: 24px;
+      color: #d40000;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
     }
-
-    .match {
-      background: white;
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+    .match-box {
+      background-color: #fff78a; /* Bright yellow */
+      border: 1px solid #bbb;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
-    .match strong {
-      font-size: 16px;
-      flex: 1 1 100%;
-      margin-bottom: 4px;
-    }
-
-    .date {
+    .match-date {
+      color: #444;
       font-size: 14px;
-      color: #333;
+      text-align: center;
+      margin-bottom: 5px;
     }
-
-    .result {
+    .match-score {
+      font-size: 22px;
       font-weight: bold;
-      font-size: 15px;
+      text-align: center;
+      color: #4b0082; /* Dark purple for contrast */
     }
-
-    @media (max-width: 600px) {
-      .match {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .match-desc {
+      text-align: center;
+      font-size: 16px;
+      color: #111;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
+  <h1>PG League Arena</h1>
 
-  <h1>📅 PG League Fixtures & Results</h1>
+  <!-- PG PRO LEAGUE -->
+  <div class="league-section">
+    <div class="title">AJart PRO LEAGUE</div>
 
-  <div id="container"></div>
+    <!-- Upcoming Fixture -->
+    <div class="match-box">
+      <div class="match-date">July 12, 2025</div>
+      <div class="match-score">Coming Soon</div>
+      <div class="match-desc">Team A vs Team B</div>
+    </div>
 
-  <script>
-    async function loadData() {
-      const res = await fetch("https://pgofficial1.github.io/PGLarena/results.json");
-      const data = await res.json();
+    <!-- Completed Result -->
+    <div class="match-box">
+      <div class="match-date">July 3, 2025</div>
+      <div class="match-score">2 - 1</div>
+      <div class="match-desc">Team A vs Team B</div>
+    </div>
+  </div>
 
-      const leagues = ["PG PRO LEAGUE", "PG CHAMPIONSHIP LEAGUE", "PG UPCOMINGS LEAGUE"];
-      const container = document.getElementById("container");
+  <!-- PG CHAMPIONSHIP LEAGUE -->
+  <div class="league-section">
+    <div class="title">AJart CHAMPIONSHIP</div>
 
-      leagues.forEach(league => {
-        const section = document.createElement("section");
+    <div class="match-box">
+      <div class="match-date">June 25, 2025</div>
+      <div class="match-score">1 - 3</div>
+      <div class="match-desc">Mlandizi FC vs Red Arrows</div>
+    </div>
+  </div>
 
-        const heading = document.createElement("h2");
-        heading.innerText = league;
-        section.appendChild(heading);
+  <!-- PG UPCOMINGS LEAGUE -->
+  <div class="league-section">
+    <div class="title">AJart UPCOMINGS LEAGUE</div>
 
-        const leagueData = data[league] || [];
-
-        const upcoming = leagueData.filter(m => !m.played);
-        const results = leagueData.filter(m => m.played);
-
-        if (upcoming.length > 0) {
-          const upTitle = document.createElement("h3");
-          upTitle.innerText = "🔜 Upcoming Fixtures";
-          section.appendChild(upTitle);
-
-          upcoming.forEach(m => {
-            const div = document.createElement("div");
-            div.className = "match";
-            div.innerHTML = `
-              <strong>${m.home} vs ${m.away}</strong>
-              <div class="date">📆 ${m.date || 'TBA'}</div>
-            `;
-            section.appendChild(div);
-          });
-        }
-
-        if (results.length > 0) {
-          const resTitle = document.createElement("h3");
-          resTitle.innerText = "✅ Finished Results";
-          section.appendChild(resTitle);
-
-          results.reverse().forEach(m => {
-            const div = document.createElement("div");
-            div.className = "match";
-            div.innerHTML = `
-              <strong>${m.home} ${m.home_goals}-${m.away_goals} ${m.away}</strong>
-              <div class="date">📆 ${m.date}</div>
-            `;
-            section.appendChild(div);
-          });
-        }
-
-        if (upcoming.length === 0 && results.length === 0) {
-          const noData = document.createElement("p");
-          noData.innerText = "No matches found.";
-          section.appendChild(noData);
-        }
-
-        container.appendChild(section);
-      });
-    }
-
-    loadData();
-  </script>
+    <div class="match-box">
+      <div class="match-date">July 7, 2025</div>
+      <div class="match-score">Coming Soon</div>
+      <div class="match-desc">Future Stars vs Rising Hope</div>
+    </div>
+  </div>
 
 </body>
 </html>
