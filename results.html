@@ -1,22 +1,86 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>PGL Arena - Fixtures & Results</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #fff; color: #111; margin: 0; padding: 0; }
-        h1 { text-align: center; background: #b30000; color: white; margin: 0; padding: 15px; }
-        .league-section { padding: 20px; border-bottom: 2px solid #ddd; }
-        .league-title { font-size: 22px; color: #b30000; border-left: 5px solid #b30000; padding-left: 10px; margin-bottom: 15px; }
-        .fixture, .result { margin: 10px 0; padding: 15px; border: 1px solid #ddd; border-radius: 6px; background: #f9f9f9; }
-        .score { font-size: 28px; font-weight: bold; color: #b30000; }
-        .teams { font-size: 18px; margin-top: 5px; }
-        .date { font-size: 14px; color: #777; margin-top: 4px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>PG League Fixtures & Results</title>
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      color: red;
+      text-align: center;
+    }
+    .league-section {
+      margin-bottom: 40px;
+    }
+    .title {
+      font-size: 24px;
+      color: #d40000;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    .match-box {
+      background-color: white;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .match-date {
+      color: #666;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .match-score {
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      color: #c00000;
+    }
+    .match-desc {
+      text-align: center;
+      font-size: 16px;
+      color: #333;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
-    <h1>PG League - Fixtures & Results</h1>
-    <!-- League sections will be inserted here -->
+  <h1>PG League Arena</h1>
+
+  <!-- Repeat for each league -->
+  <div class="league-section">
+    <div class="title">PG PRO LEAGUE</div>
+
+    <!-- Upcoming Fixtures -->
+    <div class="match-box">
+      <div class="match-date">July 12, 2025</div>
+      <div class="match-score">Coming Soon</div>
+      <div class="match-desc">Team A vs Team B</div>
+    </div>
+
+    <!-- Completed Result -->
+    <div class="match-box">
+      <div class="match-date">July 3, 2025</div>
+      <div class="match-score">2 - 1</div>
+      <div class="match-desc">Team A vs Team B</div>
+    </div>
+  </div>
+
+  <div class="league-section">
+    <div class="title">PG CHAMPIONSHIP LEAGUE</div>
+    <div class="match-box">
+      <div class="match-date">June 25, 2025</div>
+      <div class="match-score">1 - 3</div>
+      <div class="match-desc">Mlandizi FC vs Red Arrows</div>
+    </div>
+    <!-- More... -->
+  </div>
+
 </body>
 </html>
