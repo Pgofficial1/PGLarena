@@ -6,50 +6,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background-color: #0000aa; /* dark blue */
+      background-color: #000088; /* blue */
       font-family: Arial, sans-serif;
-      color: #ffffff;
+      color: #fff;
       padding: 10px;
     }
     h1 {
       text-align: center;
       color: yellow;
-      margin-bottom: 30px;
+      font-size: 28px;
+      margin-bottom: 20px;
     }
     .league-section {
       margin-bottom: 40px;
     }
     .league-title {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: bold;
       text-align: center;
-      padding: 10px;
-      color: #0ff;
-      text-shadow: 0 0 5px #0ff;
+      padding: 8px;
+      color: #00ffff;
+      text-shadow: 0 0 5px #00ffff;
     }
     .match-box {
-      background-color: #fff78a;
-      margin: 10px auto;
-      padding: 10px;
-      border-radius: 8px;
-      max-width: 400px;
+      background-color: #fff700; /* yellow */
       color: #000;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      max-width: 400px;
     }
     .match-date {
       font-size: 14px;
       text-align: center;
-      color: #333;
+      color: #222;
+    }
+    .match-score {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin: 5px 0;
     }
     .match-desc {
       text-align: center;
       font-size: 16px;
       font-weight: bold;
-    }
-    .match-score {
-      font-size: 18px;
-      text-align: center;
-      margin: 5px 0;
     }
   </style>
 </head>
@@ -68,10 +70,10 @@
           "PG UPCOMINGS LEAGUE": "AJart Upcomings League"
         };
 
-        const container = document.getElementById('content');
+        const content = document.getElementById('content');
 
-        for (const key in leagues) {
-          const leagueFixtures = data[key];
+        for (const originalName in leagues) {
+          const leagueFixtures = data[originalName];
           if (!leagueFixtures) continue;
 
           const section = document.createElement('div');
@@ -79,12 +81,12 @@
 
           const title = document.createElement('div');
           title.className = 'league-title';
-          title.textContent = leagues[key];
+          title.textContent = leagues[originalName];
           section.appendChild(title);
 
           // Upcoming Fixtures
           leagueFixtures
-            .filter(m => !m.played)
+            .filter(f => !f.played)
             .forEach(match => {
               const box = document.createElement('div');
               box.className = 'match-box';
@@ -96,9 +98,9 @@
               section.appendChild(box);
             });
 
-          // Completed Fixtures
+          // Completed Results
           leagueFixtures
-            .filter(m => m.played)
+            .filter(f => f.played)
             .forEach(match => {
               const box = document.createElement('div');
               box.className = 'match-box';
@@ -110,7 +112,7 @@
               section.appendChild(box);
             });
 
-          container.appendChild(section);
+          content.appendChild(section);
         }
       });
   </script>
