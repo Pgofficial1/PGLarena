@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PG League Fixtures & Results</title>
+  <title>AJart Fixtures & Results</title>
   <style>
     body {
-      background-color: #0000aa;
+      background-color: #001f3f;
       font-family: Arial, sans-serif;
       margin: 10px;
     }
     h1 {
-      color: #fff;
+      color: #ffdc00;
       text-align: center;
       font-size: 1.8em;
     }
@@ -19,16 +19,15 @@
       margin: 20px 0;
     }
     .title {
-      font-size: 1.5em;
+      font-size: 1.3em;
       color: #39ff14;
-      text-shadow: 0 0 5px #39ff14;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 5px;
-      margin-bottom: 10px;
+      font-weight: bold;
+      text-shadow: 0 0 4px #39ff14;
       text-align: center;
+      margin-bottom: 10px;
     }
     .match-box {
-      background-color: #ffff00;
+      background-color: #fff700;
       border: 1px solid #bbb;
       margin: 10px auto;
       padding: 10px;
@@ -67,46 +66,9 @@
   </style>
 </head>
 <body>
-  <h1>PG League Arena</h1>
+  <h1>AJart Arena – Fixtures & Results</h1>
+  <div id="fixtures-container"></div>
 
-  <!-- AJart Pro League -->
-  <div class="league-section">
-    <div class="title">AJart Pro League</div>
-
-    <div class="match-box">
-      <div class="match-date">July 12, 2025</div>
-      <div class="match-score">Coming Soon</div>
-      <div class="match-desc">Team A vs Team B</div>
-    </div>
-
-    <div class="match-box">
-      <div class="match-date">July 3, 2025</div>
-      <div class="match-score">2 - 1</div>
-      <div class="match-desc">Team A vs Team B</div>
-    </div>
-  </div>
-
-  <!-- AJart Championship -->
-  <div class="league-section">
-    <div class="title">AJart Championship</div>
-
-    <div class="match-box">
-      <div class="match-date">June 25, 2025</div>
-      <div class="match-score">1 - 3</div>
-      <div class="match-desc">Mlandizi FC vs Red Arrows</div>
-    </div>
-  </div>
-
-  <!-- AJart Upcomings League -->
-  <div class="league-section">
-    <div class="title">AJart Upcomings League</div>
-
-    <div class="match-box">
-      <div class="match-date">July 7, 2025</div>
-      <div class="match-score">Coming Soon</div>
-      <div class="match-desc">Future Stars vs Rising Hope</div>
-    </div>
-  </div>
-
+  <script src="fixtures.js"></script>
 </body>
 </html>
