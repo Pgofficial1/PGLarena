@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CHAMPIONSHIP Fixtures Schedule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+    }
 
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .button-link {
+      display: inline-block;
+      background-color: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .button-link:hover {
+      background-color: #1d4ed8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3b82f6;
+      color: white;
+      font-size: 1.1em;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f5f9;
+    }
+
+    tr:hover {
+      background-color: #e0ecff;
+    }
+
+    .day-title {
+      margin-top: 40px;
+      font-size: 1.5em;
+      color: #1e40af;
+      border-bottom: 2px solid #93c5fd;
+      padding-bottom: 5px;
+    }
+
+    .match-date {
+      font-size: 1em;
+      color: #555;
+      margin: 8px 0 16px;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 0.95em;
+        padding: 10px;
+      }
+
+      .day-title {
+        font-size: 1.2em;
+      }
+
+      .button-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 CHAMPIONSHIP Fixtures Schedule</h1>
+</header>
+
+<div class="container" id="fixture-container">
+  <div class="button-row">
+    <a class="button-link" href="fixtures.html">📅 APL Fixtures Schedule</a>
+    <a class="button-link" href="fc.html">🏆 Federation Cup Schedule</a>
+  </div>
+</div>
+
+<script>
+  const teams = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+
+  // Generate one-leg matches (no home/away duplicate)
+  const matches = [];
+  const used = new Set();
+  for (let i = 0; i < teams.length; i++) {
+    for (let j = i + 1; j < teams.length; j++) {
+      const home = Math.random() < 0.5 ? teams[i] : teams[j];
+      const away = home === teams[i] ? teams[j] : teams[i];
+      matches.push(`${home} vs ${away}`);
+    }
+  }
+
+  // Shuffle matches randomly
+  for (let i = matches.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [matches[i], matches[j]] = [matches[j], matches[i]];
+  }
+
+  // Group into match days (4 matches per day max)
+  const matchDays = [];
+  while (matches.length) {
+    matchDays.push(matches.splice(0, 4));
+  }
+
+  const container = document.getElementById("fixture-container");
+
+  matchDays.forEach((dayMatches, index) => {
+    const day = index + 1;
+
+    const dayTitle = document.createElement("div");
+    dayTitle.className = "day-title";
+    dayTitle.textContent = `📅 Match Day ${day}`;
+    container.appendChild(dayTitle);
+
+    const dateLine = document.createElement("div");
+    dateLine.className = "match-date";
+    dateLine.innerHTML = `📆 Date: <strong>__/__/2025</strong>`;
+    container.appendChild(dateLine);
+
+    const table = document.createElement("table");
+    const headerRow = document.createElement("tr");
+    const th1 = document.createElement("th");
+    th1.textContent = "#";
+    const th2 = document.createElement("th");
+    th2.textContent = "Match";
+    headerRow.appendChild(th1);
+    headerRow.appendChild(th2);
+    table.appendChild(headerRow);
+
+    dayMatches.forEach((match, i) => {
+      const row = document.createElement("tr");
+      const cell1 = document.createElement("td");
+      cell1.textContent = i + 1;
+      const cell2 = document.createElement("td");
+      cell2.textContent = match;
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      table.appendChild(row);
+    });
+
+    container.appendChild(table);
+  });
+</script>
+
+</body>
+  </html>
