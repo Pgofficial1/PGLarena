@@ -34,6 +34,29 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
+    .button-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .button-link {
+      display: inline-block;
+      background-color: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .button-link:hover {
+      background-color: #1d4ed8;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -73,24 +96,6 @@
       margin: 8px 0 16px;
     }
 
-    .champions-button {
-      display: inline-block;
-      margin-top: 10px;
-      margin-bottom: 25px;
-      background-color: #2563eb;
-      color: white;
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .champions-button:hover {
-      background-color: #1d4ed8;
-    }
-
     @media (max-width: 600px) {
       th, td {
         font-size: 0.95em;
@@ -99,6 +104,11 @@
 
       .day-title {
         font-size: 1.2em;
+      }
+
+      .button-row {
+        flex-direction: column;
+        gap: 10px;
       }
     }
   </style>
@@ -110,8 +120,10 @@
 </header>
 
 <div class="container" id="fixture-container">
-  <a class="champions-button" href="chl.html">⚽ Champions Fixtures</a>
-  <a class="federationcup-button" href="fc.html">🏆 federation cup schedule</a>
+  <div class="button-row">
+    <a class="button-link" href="chl.html">⚽ Champions Fixtures</a>
+    <a class="button-link" href="fc.html">🏆 Federation Cup Schedule</a>
+  </div>
 </div>
 
 <script>
@@ -153,7 +165,7 @@
 
     const dateLine = document.createElement("div");
     dateLine.className = "match-date";
-    dateLine.innerHTML = `📆 Date: <strong>__/__/2025</strong>`; // You can edit this manually later
+    dateLine.innerHTML = `📆 Date: <strong>__/__/2025</strong>`;
     container.appendChild(dateLine);
 
     const table = document.createElement("table");
