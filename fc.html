@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sponsor Federation Cup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+    }
 
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      overflow-x: auto;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .button-link {
+      display: inline-block;
+      background-color: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .button-link:hover {
+      background-color: #1d4ed8;
+    }
+
+    .bracket {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: nowrap;
+    }
+
+    .round {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .match {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .match img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .score {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .trophy {
+      width: 70px;
+      height: 90px;
+      margin: 10px auto;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3595/3595455.png');
+      background-size: cover;
+      filter: hue-rotate(30deg) brightness(1.2);
+    }
+
+    @media (max-width: 800px) {
+      .bracket {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 30px;
+      }
+
+      .round {
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏆 Sponsor Federation Cup</h1>
+</header>
+
+<div class="container">
+  <div class="button-row">
+    <a class="button-link" href="fixtures.html">📅 APL Fixtures Schedule</a>
+    <a class="button-link" href="chl.html">⚽ Championship Fixtures</a>
+  </div>
+
+  <div class="bracket">
+    <!-- Round of 16 -->
+    <div class="round">
+      <div class="match"><img src="temp1.png"><div class="score">0</div></div>
+      <div class="match"><img src="temp2.png"><div class="score">1</div></div>
+      <div class="match"><img src="temp3.png"><div class="score">2</div></div>
+      <div class="match"><img src="temp4.png"><div class="score">3</div></div>
+      <div class="match"><img src="temp5.png"><div class="score">1</div></div>
+      <div class="match"><img src="temp6.png"><div class="score">2</div></div>
+      <div class="match"><img src="temp7.png"><div class="score">4</div></div>
+      <div class="match"><img src="temp8.png"><div class="score">0</div></div>
+    </div>
+
+    <!-- Quarterfinals -->
+    <div class="round">
+      <div class="match"><img src="temp9.png"><div class="score">2</div></div>
+      <div class="match"><img src="temp10.png"><div class="score">0</div></div>
+      <div class="match"><img src="temp11.png"><div class="score">3</div></div>
+      <div class="match"><img src="temp12.png"><div class="score">1</div></div>
+    </div>
+
+    <!-- Semifinals -->
+    <div class="round">
+      <div class="match"><img src="temp13.png"><div class="score">3</div></div>
+      <div class="match"><img src="temp14.png"><div class="score">2</div></div>
+    </div>
+
+    <!-- Final -->
+    <div class="round">
+      <div class="match">
+        <img src="temp15.png">
+        <div class="score">4</div>
+        <div class="trophy"></div>
+        <div class="score"><strong>CHAMPION</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+  </html>
