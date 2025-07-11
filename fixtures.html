@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Today’s Football Fixtures</title>
+  <title>Football Fixtures Schedule</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f4ff;
+      background-color: #f4f7fc;
       margin: 0;
       padding: 0;
     }
@@ -26,26 +26,18 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 30px auto;
       background-color: white;
       padding: 20px;
-      border-radius: 12px;
+      border-radius: 15px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    .day-title {
-      font-size: 1.5em;
-      color: #1d4ed8;
-      border-bottom: 2px solid #93c5fd;
-      padding-bottom: 6px;
-      margin-bottom: 20px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
 
     th, td {
@@ -56,48 +48,46 @@
     th {
       background-color: #3b82f6;
       color: white;
+      font-size: 1.1em;
     }
 
     tr:nth-child(even) {
-      background-color: #f9fafb;
+      background-color: #f1f5f9;
     }
 
     tr:hover {
       background-color: #e0ecff;
     }
 
-    button {
-      background-color: #2563eb;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #1d4ed8;
-    }
-
-    #all-fixtures {
-      display: none;
+    .day-title {
       margin-top: 40px;
+      font-size: 1.5em;
+      color: #1e40af;
+      border-bottom: 2px solid #93c5fd;
+      padding-bottom: 5px;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 0.95em;
+        padding: 10px;
+      }
+
+      .day-title {
+        font-size: 1.2em;
+      }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>🏟️ Today’s Football Fixtures</h1>
-  <p>Auto-updated based on calendar day</p>
+  <h1>🏆 Football Fixtures Schedule</h1>
+  <p>Home and Away Matches | 4 Matches Per Day</p>
 </header>
 
-<div class="container">
-  <div id="today-section"></div>
-  <button onclick="document.getElementById('all-fixtures').style.display='block'; this.style.display='none'">📅 Show All Fixtures</button>
-  <div id="all-fixtures"></div>
+<div class="container" id="fixture-container">
+  <!-- Fixtures will be injected here -->
 </div>
 
 <script>
@@ -112,7 +102,7 @@
     ["B vs F", "C vs H", "D vs J", "E vs I"],
     ["G vs C", "H vs D", "I vs F", "J vs A"],
     ["A vs E", "B vs I", "C vs J", "D vs F"],
-    ["E 1-0 C", "F 5-1 H", "G vs B", "I vs D"],
+    ["E vs C", "F vs H", "G vs B", "I vs D"],
     ["J vs F", "A vs C", "B vs D", "E vs G"],
     ["H vs I", "J vs G", "C vs D", "F vs B"],
     ["G vs A", "H vs E", "I vs J", "B vs C"],
@@ -127,37 +117,39 @@
     ["J vs A", "D vs F"]
   ];
 
-  const startDate = new Date("2025-07-01");
-  const today = new Date();
-  const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-  const matchDay = diffDays + 1;
+  const container = document.getElementById("fixture-container");
 
-  const todaySection = document.getElementById("today-section");
-  if (matchDay >= 1 && matchDay <= fixtures.length) {
-    const matches = fixtures[matchDay - 1];
-    const title = `<div class="day-title">📅 Match Day ${matchDay} – ${today.toDateString()}</div>`;
-    let table = `
-      <table>
-        <tr><th>#</th><th>Match</th></tr>
-        ${matches.map((m, i) => `<tr><td>${i + 1}</td><td>${m}</td></tr>`).join("")}
-      </table>
-    `;
-    todaySection.innerHTML = title + table;
-  } else {
-    todaySection.innerHTML = `<p style="color:red;">No match scheduled for today (${today.toDateString()})</p>`;
-  }
+  fixtures.forEach((dayMatches, index) => {
+    const day = index + 1;
 
-  const allFixturesDiv = document.getElementById("all-fixtures");
-  let allHTML = "";
-  fixtures.forEach((matches, day) => {
-    allHTML += `<div class="day-title">📅 Match Day ${day + 1}</div>`;
-    allHTML += `<table><tr><th>#</th><th>Match</th></tr>`;
-    matches.forEach((m, i) => {
-      allHTML += `<tr><td>${i + 1}</td><td>${m}</td></tr>`;
+    const dayTitle = document.createElement("div");
+    dayTitle.className = "day-title";
+    dayTitle.textContent = `📅 Match Day ${day}`;
+    container.appendChild(dayTitle);
+
+    const table = document.createElement("table");
+    const headerRow = document.createElement("tr");
+    const th1 = document.createElement("th");
+    th1.textContent = "#";
+    const th2 = document.createElement("th");
+    th2.textContent = "Match";
+    headerRow.appendChild(th1);
+    headerRow.appendChild(th2);
+    table.appendChild(headerRow);
+
+    dayMatches.forEach((match, i) => {
+      const row = document.createElement("tr");
+      const cell1 = document.createElement("td");
+      cell1.textContent = i + 1;
+      const cell2 = document.createElement("td");
+      cell2.textContent = match;
+      row.appendChild(cell1);
+      row.appendChild(cell2);
+      table.appendChild(row);
     });
-    allHTML += `</table>`;
+
+    container.appendChild(table);
   });
-  allFixturesDiv.innerHTML = allHTML;
 </script>
 
 </body>
