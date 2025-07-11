@@ -1,120 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>AJart Fixtures & Results</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Today’s Football Fixtures</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background-color: #000088; /* blue */
-      font-family: Arial, sans-serif;
-      color: #fff;
-      padding: 10px;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4ff;
+      margin: 0;
+      padding: 0;
     }
-    h1 {
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
       text-align: center;
-      color: yellow;
-      font-size: 28px;
+      padding: 20px 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .day-title {
+      font-size: 1.5em;
+      color: #1d4ed8;
+      border-bottom: 2px solid #93c5fd;
+      padding-bottom: 6px;
       margin-bottom: 20px;
     }
-    .league-section {
-      margin-bottom: 40px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
     }
-    .league-title {
-      font-size: 22px;
-      font-weight: bold;
-      text-align: center;
-      padding: 8px;
-      color: #00ffff;
-      text-shadow: 0 0 5px #00ffff;
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
     }
-    .match-box {
-      background-color: #fff700; /* yellow */
-      color: #000;
+
+    th {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    tr:hover {
+      background-color: #e0ecff;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      border: none;
       border-radius: 8px;
-      padding: 10px;
-      margin: 10px auto;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-      max-width: 400px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 10px;
     }
-    .match-date {
-      font-size: 14px;
-      text-align: center;
-      color: #222;
+
+    button:hover {
+      background-color: #1d4ed8;
     }
-    .match-score {
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-      margin: 5px 0;
-    }
-    .match-desc {
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
+
+    #all-fixtures {
+      display: none;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <h1>AJart Fixtures & Results</h1>
 
-  <div id="content"></div>
+<header>
+  <h1>🏟️ Today’s Football Fixtures</h1>
+  <p>Auto-updated based on calendar day</p>
+</header>
 
-  <script>
-    fetch('https://pgofficial1.github.io/PGLarena/fixtures.json')
-      .then(res => res.json())
-      .then(data => {
-        const leagues = {
-          "PG PRO LEAGUE": "AJart Pro League",
-          "PG CHAMPIONSHIP LEAGUE": "AJart Championship",
-          "PG UPCOMINGS LEAGUE": "AJart Upcomings League"
-        };
+<div class="container">
+  <div id="today-section"></div>
+  <button onclick="document.getElementById('all-fixtures').style.display='block'; this.style.display='none'">📅 Show All Fixtures</button>
+  <div id="all-fixtures"></div>
+</div>
 
-        const content = document.getElementById('content');
+<script>
+  const fixtures = [
+    ["A vs B", "C vs D", "E vs F", "G vs H"],
+    ["I vs A", "J vs C", "B vs E", "D vs G"],
+    ["F vs I", "H vs J", "A vs D", "B vs G"],
+    ["C vs F", "E vs H", "G vs I", "J vs B"],
+    ["D vs E", "F vs G", "H vs A", "I vs J"],
+    ["B vs C", "D vs I", "F vs A", "G vs J"],
+    ["H vs B", "I vs C", "J vs E", "A vs G"],
+    ["B vs F", "C vs H", "D vs J", "E vs I"],
+    ["G vs C", "H vs D", "I vs F", "J vs A"],
+    ["A vs E", "B vs I", "C vs J", "D vs F"],
+    ["E vs C", "F vs H", "G vs B", "I vs D"],
+    ["J vs F", "A vs C", "B vs D", "E vs G"],
+    ["H vs I", "J vs G", "C vs D", "F vs B"],
+    ["G vs A", "H vs E", "I vs J", "B vs C"],
+    ["D vs A", "F vs G", "H vs J", "C vs I"],
+    ["A vs I", "B vs J", "D vs C", "E vs F"],
+    ["G vs E", "H vs B", "I vs F", "J vs C"],
+    ["A vs H", "C vs B", "F vs J", "G vs D"],
+    ["E vs B", "D vs J", "I vs G", "H vs C"],
+    ["F vs C", "J vs I", "A vs B", "G vs H"],
+    ["C vs A", "B vs D", "E vs J", "F vs H"],
+    ["I vs E", "J vs G", "H vs D", "F vs B"],
+    ["J vs A", "D vs F"]
+  ];
 
-        for (const originalName in leagues) {
-          const leagueFixtures = data[originalName];
-          if (!leagueFixtures) continue;
+  const startDate = new Date("2025-07-01");
+  const today = new Date();
+  const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+  const matchDay = diffDays + 1;
 
-          const section = document.createElement('div');
-          section.className = 'league-section';
+  const todaySection = document.getElementById("today-section");
+  if (matchDay >= 1 && matchDay <= fixtures.length) {
+    const matches = fixtures[matchDay - 1];
+    const title = `<div class="day-title">📅 Match Day ${matchDay} – ${today.toDateString()}</div>`;
+    let table = `
+      <table>
+        <tr><th>#</th><th>Match</th></tr>
+        ${matches.map((m, i) => `<tr><td>${i + 1}</td><td>${m}</td></tr>`).join("")}
+      </table>
+    `;
+    todaySection.innerHTML = title + table;
+  } else {
+    todaySection.innerHTML = `<p style="color:red;">No match scheduled for today (${today.toDateString()})</p>`;
+  }
 
-          const title = document.createElement('div');
-          title.className = 'league-title';
-          title.textContent = leagues[originalName];
-          section.appendChild(title);
+  const allFixturesDiv = document.getElementById("all-fixtures");
+  let allHTML = "";
+  fixtures.forEach((matches, day) => {
+    allHTML += `<div class="day-title">📅 Match Day ${day + 1}</div>`;
+    allHTML += `<table><tr><th>#</th><th>Match</th></tr>`;
+    matches.forEach((m, i) => {
+      allHTML += `<tr><td>${i + 1}</td><td>${m}</td></tr>`;
+    });
+    allHTML += `</table>`;
+  });
+  allFixturesDiv.innerHTML = allHTML;
+</script>
 
-          // Upcoming Fixtures
-          leagueFixtures
-            .filter(f => !f.played)
-            .forEach(match => {
-              const box = document.createElement('div');
-              box.className = 'match-box';
-              box.innerHTML = `
-                <div class="match-date">${match.date}</div>
-                <div class="match-score">Coming Soon</div>
-                <div class="match-desc">${match.home} vs ${match.away}</div>
-              `;
-              section.appendChild(box);
-            });
-
-          // Completed Results
-          leagueFixtures
-            .filter(f => f.played)
-            .forEach(match => {
-              const box = document.createElement('div');
-              box.className = 'match-box';
-              box.innerHTML = `
-                <div class="match-date">${match.date}</div>
-                <div class="match-score">${match.home_goals} - ${match.away_goals}</div>
-                <div class="match-desc">${match.home} vs ${match.away}</div>
-              `;
-              section.appendChild(box);
-            });
-
-          content.appendChild(section);
-        }
-      });
-  </script>
 </body>
 </html>
