@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Football Fixtures Schedule</title>
+  <title>APL Fixtures Schedule</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -67,6 +67,30 @@
       padding-bottom: 5px;
     }
 
+    .match-date {
+      font-size: 1em;
+      color: #555;
+      margin: 8px 0 16px;
+    }
+
+    .champions-button {
+      display: inline-block;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      background-color: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .champions-button:hover {
+      background-color: #1d4ed8;
+    }
+
     @media (max-width: 600px) {
       th, td {
         font-size: 0.95em;
@@ -82,12 +106,12 @@
 <body>
 
 <header>
-  <h1>🏆 Football Fixtures Schedule</h1>
-  <p>Home and Away Matches | 4 Matches Per Day</p>
+  <h1>🏆 APL Fixtures Schedule</h1>
 </header>
 
 <div class="container" id="fixture-container">
-  <!-- Fixtures will be injected here -->
+  <a class="champions-button" href="chl.html">⚽ Champions Fixtures</a>
+  <a class="federationcup-button" href="fc.html">🏆 federation cup schedule</a>
 </div>
 
 <script>
@@ -126,6 +150,11 @@
     dayTitle.className = "day-title";
     dayTitle.textContent = `📅 Match Day ${day}`;
     container.appendChild(dayTitle);
+
+    const dateLine = document.createElement("div");
+    dateLine.className = "match-date";
+    dateLine.innerHTML = `📆 Date: <strong>__/__/2025</strong>`; // You can edit this manually later
+    container.appendChild(dateLine);
 
     const table = document.createElement("table");
     const headerRow = document.createElement("tr");
